@@ -81,7 +81,7 @@ Make sure all of them are loaded through Neorg’s module system in your config:
 
 ## Usage
 
-Run the following Neorg command to insert a quote at the current cursor location:
+Run the following Neorg command to insert an icon as a prefix to the link label:
 
 ```
 :Neorg dew_decorlink
