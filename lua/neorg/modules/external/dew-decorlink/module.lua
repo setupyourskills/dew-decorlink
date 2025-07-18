@@ -28,7 +28,7 @@ module.config.public = {
 
 module.private = {
   extract_icon = function(line)
-    return line:match ": (.+)" .. " "
+    return line:match ": (.+)"
   end,
 
   set_formatted_icon_list = function()
@@ -78,7 +78,7 @@ module.private = {
             -- Reconstruire la ligne avec l'icône insérée juste après le [
             local before = line:sub(1, insert_pos)
             local after = line:sub(insert_pos + 1)
-            local new_line = before .. icon .. after
+            local new_line = before .. icon .. " " .. after
 
             vim.api.nvim_set_current_line(new_line)
           else
