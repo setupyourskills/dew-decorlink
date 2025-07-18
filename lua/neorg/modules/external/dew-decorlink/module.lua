@@ -32,12 +32,20 @@ module.private = {
   end,
 
   set_formatted_icon_list = function()
-    local icons = {}
-    for k, v in pairs(module.config.public.icons) do
-      table.insert(icons, k .. ": " .. v .. " ")
+    local icons = module.config.public.icons
+    local sorted_keys = {}
+    local sorted_list = {}
+
+    for k in pairs(icons) do
+      table.insert(sorted_keys, k)
+    end
+    table.sort(sorted_keys)
+
+    for _, vk in ipairs(sorted_keys) do
+      table.insert(sorted_list, vk .. ": " .. icons[vk] .. " ")
     end
 
-    return icons
+    return sorted_list
   end,
 
   pick_and_insert_icon = function()
