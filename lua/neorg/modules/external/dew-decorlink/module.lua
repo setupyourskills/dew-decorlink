@@ -4,7 +4,6 @@ local modules = neorg.modules
 local api = vim.api
 
 local module = modules.create "external.dew-decorlink"
-local neorg_dew = require("neorg.core.modules").get_module "external.neorg-dew"
 
 module.setup = function()
   return {
@@ -50,39 +49,41 @@ module.private = {
   end,
 
   pick_and_insert_icon = function()
-    neorg_dew.telescope_picker("Choose an iten to insert", module.private.set_formatted_icon_list(), {
-      entry_value = function(entry)
-        return entry
-      end,
-      entry_display = function(entry)
-        return entry
-      end,
-      entry_ordinal = function(entry)
-        return entry
-      end,
-    }, function(map, action_state, actions)
-      map("i", "<CR>", function(bufnr)
-        local selection = action_state.get_selected_entry()
-        actions.close(bufnr)
+    modules
+      .get_module("external.neorg-dew")
+      .telescope_picker("Choose an iten to insert", module.private.set_formatted_icon_list(), {
+        entry_value = function(entry)
+          return entry
+        end,
+        entry_display = function(entry)
+          return entry
+        end,
+        entry_ordinal = function(entry)
+          return entry
+        end,
+      }, function(map, action_state, actions)
+        map("i", "<CR>", function(bufnr)
+          local selection = action_state.get_selected_entry()
+          actions.close(bufnr)
 
-        local icon = module.private.extract_icon(selection.display)
+          local icon = module.private.extract_icon(selection.display)
 
-        local line = api.nvim_get_current_line()
+          local line = api.nvim_get_current_line()
 
-        local insert_pos = line:find("[", 1, true)
+          local insert_pos = line:find("[", 1, true)
 
-        if insert_pos then
-          local before = line:sub(1, insert_pos)
-          local after = line:sub(insert_pos + 1)
-          local new_line = before .. icon .. " " .. after
+          if insert_pos then
+            local before = line:sub(1, insert_pos)
+            local after = line:sub(insert_pos + 1)
+            local new_line = before .. icon .. " " .. after
 
-          api.nvim_set_current_line(new_line)
-        else
-          vim.notify("No '[' found on the current line to insert icon", vim.log.levels.WARN)
-        end
+            api.nvim_set_current_line(new_line)
+          else
+            vim.notify("No '[' found on the current line to insert icon", vim.log.levels.WARN)
+          end
+        end)
+        return true
       end)
-      return true
-    end)
   end,
 }
 
