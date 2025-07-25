@@ -18,6 +18,7 @@ This module is part of the [Neorg Dew](https://github.com/setupyourskills/neorg-
 
 - A functional installation of [Neorg](https://github.com/nvim-neorg/neorg) is required for this module to work.
 - The core module [Neorg Dew](https://github.com/setupyourskills/neorg-dew) must be installed, as it provides essential base libraries.
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) — this module is used for the picker UI.
 
 ### Using Lazy.nvim
 
@@ -27,6 +28,7 @@ This module is part of the [Neorg Dew](https://github.com/setupyourskills/neorg-
   ft = "norg",
   dependencies = {
     "setupyourskills/neorg-dew",
+    "nvim-telescope/telescope.nvim",
   },
 }
 ```
